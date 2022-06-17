@@ -14,6 +14,7 @@ const ArticleList = () => {
 
     return (
         <>
+            <h1>All Articles</h1>
             { !posts && <Loading /> }
             { posts && posts.map(post => (
                 <div className="card">

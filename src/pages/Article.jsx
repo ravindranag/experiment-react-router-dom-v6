@@ -11,24 +11,29 @@ const Article = () => {
     const { postId } = useParams()
 
     const [post, setPost] = useState()
+    const [error, setError] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
 
         if(!digitRegex.test(postId)){
             console.log('true')
-            navigate('not-found',{
-                replace: true
-            })
+            navigate('not-found')
         }
         fetch('https://jsonplaceholder.typicode.com/posts/' + postId)
-        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            if(res.status === 404) {
+                setError(true)
+            }
+            res.json()
+        })
         .then(post => setPost(post))
     }, [postId])
 
     return (
         <>
-            {!post && <Loading />}
+            {!error && <Loading />}
             { post && (
                 <div className="card">
                     <h3>{post.title}</h3>
@@ -36,6 +41,7 @@ const Article = () => {
                 </div>
                 )
             }
+            { error && <NotFound postId={postId}/> }
         </>
     );
 }

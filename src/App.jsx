@@ -1,11 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Container } from "@mui/material";
+import RouteController from "./controllers/RouteController";
 
 function App() {
   return (
-    <div className='container'>
-      <h2>Sample App to explore React-Router-Dom v6</h2>
-      <Outlet />
-    </div>
+    <Container>
+      <RouteController />
+    </Container>
   );
 }
  
