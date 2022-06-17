@@ -12,6 +12,7 @@ const Article = () => {
 
     const [post, setPost] = useState()
     const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -26,14 +27,15 @@ const Article = () => {
             if(res.status === 404) {
                 setError(true)
             }
-            res.json()
+            setLoading(false)
+            return res.json()
         })
         .then(post => setPost(post))
     }, [postId])
 
     return (
         <>
-            {!error && <Loading />}
+            {loading && <Loading />}
             { post && (
                 <div className="card">
                     <h3>{post.title}</h3>
